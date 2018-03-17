@@ -1,4 +1,6 @@
 import java.util.List;
+import java.util.*;
+
 
 /**
  * Representation of a text adventure game. Games are given to an
@@ -12,9 +14,9 @@ public interface Game{
      * Gets a list of all the the locations in the game
      *
      * @return a list of all the locations in the game
-     * @see Location
+     * @see Level
      */
-    public List<Location> getLocations();
+    public Map<String, Level> getLevels();
 
     /**
      * Get the player for the game

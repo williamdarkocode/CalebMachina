@@ -1,4 +1,4 @@
-public interface Location{
+public interface Level{
 
     /**
      * Gets the name of the location in the text adventure game.
