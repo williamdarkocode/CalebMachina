@@ -5,9 +5,9 @@ import java.util.*;
 public class Network implements Game {
 
     @Override
-    public Map<String, Level> getLevels(){
-        Map<String, Level>  levels =  new HashMap<String,Level>();
-        return levels;
+    public List<Level> getLevels(){
+       List<Level> levelsInGame = new ArrayList<Level>();
+       return levelsInGame;
     }
 
     @Override

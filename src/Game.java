@@ -16,7 +16,7 @@ public interface Game{
      * @return a list of all the locations in the game
      * @see Level
      */
-    public Map<String, Level> getLevels();
+    public List<Level> getLevels();
 
     /**
      * Get the player for the game

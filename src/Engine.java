@@ -28,6 +28,6 @@ public interface Engine{
      * @throws InterruptedException if game is interrupted while paused
      * @throws IllegalStateException if game is not started OR game is done
      */
-    public void goToNextState() throws InterruptedException,
+    public void goToNextLevel() throws InterruptedException,
             IllegalStateException;
 }

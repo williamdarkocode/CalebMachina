@@ -30,6 +30,8 @@ public abstract class Item{
      *         exceeds the count of instances of the item
      */
     abstract void use(int positiveNum) throws IllegalArgumentException;
+    
+    abstract String getType();
 
     /**
      * Combines two items of the same kind into one.

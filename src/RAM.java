@@ -9,18 +9,18 @@ import java.util.*;
 
 public class RAM implements Inventory
 {
-    private Map<String, Item> bag;
+    private Map<String, Item> ram;
 
 
     public RAM(){
-        bag = new HashMap<String, Item>();
+        ram = new HashMap<String, Item>();
     }
 
 
     private void updateInv(){
-        for(Item itm: bag.values()){
+        for(Item itm: ram.values()){
             if(itm.getCount() == 0){
-                bag.remove(itm.getName());
+                ram.remove(itm.getName());
             }
         }
     }
@@ -34,12 +34,15 @@ public class RAM implements Inventory
     public void addItem(Item i)
     {
         updateInv();
-        if((this.bag.containsKey(i.getName())) && (this.bag.get(i.getName()).getDescription().equals(i.getDescription()))){
-            this.bag.get(i.getName()).combine(i);
+        Item itemInRAM = this.ram.get(i.getName());
+        boolean sameItem = (itemInRAM.getName().equals(i.getName())) && (itemInRAM.getDescription().equals(i.getDescription())) && (itemInRAM.getType().equals(i.getType()));
+        if(this.ram.containsKey(i.getName()) && sameItem){
+            this.ram.get(i.getName()).combine(i);
         }
         else{
-            this.bag.put(i.getName(), i);
+            this.ram.put(i.getName(),i);
         }
+        updateInv();
     }
 
     /**
@@ -53,7 +56,7 @@ public class RAM implements Inventory
     public boolean hasItem(String itemName)
     {
         updateInv();
-        return this.bag.containsKey(itemName);
+        return this.ram.containsKey(itemName);
     }
 
     /**
@@ -67,11 +70,11 @@ public class RAM implements Inventory
     public Item getItem(String itemName) throws IllegalArgumentException
     {
         updateInv();
-        if(this.bag.get(itemName) == null){
-            throw new IllegalArgumentException(itemName + " does not exist in BackPack!");
+        if(this.ram.get(itemName) == null){
+            throw new IllegalArgumentException(itemName + " does not exist in RAM!");
         }
         else{
-            return this.bag.get(itemName);
+            return this.ram.get(itemName);
         }
     }
 
@@ -79,7 +82,7 @@ public class RAM implements Inventory
     public String toString(){
         updateInv();
         String str = "";
-        for(Item i: bag.values()){
+        for(Item i: ram.values()){
 
             str+= i.getName() + i.getCount() + "   ----    ";
         }
