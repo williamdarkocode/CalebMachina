@@ -2,7 +2,7 @@ import java.util.HashMap;
 import java.util.*;
 
 
-public class Network implements Game {
+public class CalebTheMachine implements Game {
 
     @Override
     public List<Level> getLevels(){
