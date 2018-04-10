@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Options
-comment1.params=optionsList
-comment1.target=Options(java.util.List)
+comment1.params=
+comment1.target=Options()
 comment2.params=
 comment2.target=java.util.List\ getOptions()
 comment3.params=idx
@@ -10,6 +10,8 @@ comment4.params=newOptionsSet
 comment4.target=void\ resetOptions(java.util.List)
 comment5.params=newOption\ idx
 comment5.target=void\ changeSingeOption(java.lang.String,\ int)
-comment6.params=
-comment6.target=java.lang.String\ displayOptions()
-numComments=7
+comment6.params=op
+comment6.target=void\ addOption(java.lang.String)
+comment7.params=
+comment7.target=java.lang.String\ displayOptions()
+numComments=8

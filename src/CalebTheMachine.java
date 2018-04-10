@@ -7,6 +7,7 @@ public class CalebTheMachine implements Game {
     @Override
     public List<Level> getLevels(){
        List<Level> levelsInGame = new ArrayList<Level>();
+       levelsInGame.add(new Wake());
        return levelsInGame;
     }
 

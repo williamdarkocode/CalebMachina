@@ -32,13 +32,14 @@ public class TestGamePlay
 
     @Test
     public void testGame(){
-        Wake wake = new Wake();
+        //Wake wake = new Wake();
+        Blackbox b = new Blackbox();
         Inventory ram = new RAM();
         Player p = new Caleb();
         
        try{
            //wts.testGenPers();
-           wake.enter(p);
+           b.enter(p);
         }
         catch(InterruptedException err){
             System.out.println("oh noooo");

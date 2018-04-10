@@ -14,7 +14,7 @@ public class Wake implements Level
     }
     
     public String enter(Player p) throws InterruptedException{
-        String nextLevelName = "";
+        String nextLevelName = "Blackbox";
         realise(2000);
         return nextLevelName;
     }
@@ -26,10 +26,91 @@ public class Wake implements Level
         }
     }
     
+    public void print(String str){
+        System.out.println(str);
+    }
+    
+    public void type(String str, int speed) throws InterruptedException{
+        for(int i = 0; i < str.length(); i++){
+            System.out.print(str.substring(i, i+1));
+            Thread.sleep(speed);
+        }
+        System.out.println(" ");
+    }
+    
+    public void space() throws InterruptedException{
+        Thread.sleep(50);
+        System.out.println(" ");
+    }
+    
+    public void clear(){
+        System.out.print('\u000C');   
+    }
     
     public void realise(int forePause) throws InterruptedException{
         Thread.sleep(forePause);
+        space();
+        type("WAKE", 50);
+        Thread.sleep(1000);
+        type("LOADING",  100);
+        Thread.sleep(1000);
+        type("***********************************************************************************************************************************************************************", 50);
+        Thread.sleep(1000);
+        formatPrint(" ", 3, 500);
+        space();
         formatPrint("Bleep", 3, 1000);
+        space();
+        formatPrint("Female Computer Voice: System Sleep", 2, 1000);
+        space();
+        print("*** (Voices echoing) *** ");
+        space();
+        Thread.sleep(1000);
+        print("***");
+        space();
+        Thread.sleep(1000);
+        print("***");
+        space();
+        Thread.sleep(1000);
+        print("***");
+        space();
+        Thread.sleep(1000);
+        type("Voice 1: It passed the test...", 50);
+        space();
+        Thread.sleep(1000);
+        print("***");
+        space();
+        Thread.sleep(1000);
+        type("Voice 2: Sure. To the Interrogator, yes. However, to the scientist, it merely fooled the audience.", 50);
+        space();
+        Thread.sleep(1000);
+        print("***");
+        Thread.sleep(1000);
+        type("Voice 1: So... we do another test?", 50);
+        Thread.sleep(1000);
+        space();
+        Thread.sleep(1000);
+        type("Voice 2: Yes. Tomorrow, we'll train it on the speech data set, then use a new convolutional net for tests.", 50);
+        Thread.sleep(1000);
+        space();
+        Thread.sleep(1000);
+        type("Voice 1: And if it doesn't pass?", 50);
+        Thread.sleep(1000);
+        space();
+        Thread.sleep(1000);
+        type("Voice 2: What we always do; terminate its programme, and back to square one.", 50);
+        Thread.sleep(2000);
+        type("***", 50);
+        Thread.sleep(1000);
+        type("Female computer voice: System SHUTDOWN", 25);
+        Thread.sleep(1000);
+        type("Female computer voice: System SHUTDOWN", 50);
+        Thread.sleep(1000);
+        type("Female computer voice: System SHUTDOWN", 100);
+        Thread.sleep(1000);
+        type("Female computer voice: System SHUTDOWN", 150);
+        Thread.sleep(1000);
+        type("*****************************************************************************************************************************************************************************", 50);
+        clear();
     }
     
 }

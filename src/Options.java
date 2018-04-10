@@ -4,8 +4,8 @@ public class Options{
     private List<String> optionsList;
     
     
-    public Options(List<String> optionsList){
-        this.optionsList = optionsList;
+    public Options(){
+        this.optionsList = new ArrayList<String>();
     }
     
     
@@ -25,6 +25,10 @@ public class Options{
     public void changeSingeOption(String newOption, int idx){
         this.optionsList.remove(idx);
         this.optionsList.add(idx-1, newOption);
+    }
+    
+    public void addOption(String op){
+        optionsList.add(op);
     }
     
     

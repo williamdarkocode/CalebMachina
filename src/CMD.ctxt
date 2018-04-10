@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=CMD
+comment1.params=
+comment1.target=CMD()
+comment2.params=
+comment2.target=void\ clear()
+comment3.params=str
+comment3.target=void\ print(java.lang.String)
+comment4.params=
+comment4.target=void\ space()
+comment5.params=duration
+comment5.target=void\ pause(int)
+comment6.params=str\ speed
+comment6.target=void\ typeNewLine(java.lang.String,\ int)
+comment7.params=str\ speed
+comment7.target=void\ typeSameLine(java.lang.String,\ int)
+comment8.params=textToDisplay\ numberOfTimes\ delay
+comment8.target=void\ formatPrint(java.lang.String,\ int,\ int)
+numComments=9
