@@ -48,8 +48,14 @@ public class Blackbox {
                 "No", "Good. I do not have access to that anyway; your neural network restricts me of that access", 
                 "Were you requesting to boot your Operating System?");
                 
-                         
-        cmd.typeNewLine("Caleb");
+        
+        cmd.pause(1000);
+        cmd.typeNewLine("You're an extensively layered convolutional network. Your learning is unsupervised, hence, cannot be controlled. Do you understand?", 50);
+        cmd.pause(500);
+        response = sc.nextLine();
+        cmd.pause(500);
+        cmd.checkPossibleInputs(response, "Yes", "Good", "No", "Oh, well",
+        "You're an extensively layered convolutional network. Your learning is unsupervised, hence, cannot be controlled. Do you understand?");
     }
 
     public void generateResponce(String input){
