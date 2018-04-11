@@ -2,6 +2,8 @@
 comment0.target=CMD
 comment1.params=
 comment1.target=CMD()
+comment10.params=input\ desired\ output
+comment10.target=boolean\ checkAndSpit(java.lang.String,\ java.lang.String,\ java.lang.String)
 comment2.params=
 comment2.target=void\ clear()
 comment3.params=str
@@ -16,4 +18,6 @@ comment7.params=str\ speed
 comment7.target=void\ typeSameLine(java.lang.String,\ int)
 comment8.params=textToDisplay\ numberOfTimes\ delay
 comment8.target=void\ formatPrint(java.lang.String,\ int,\ int)
-numComments=9
+comment9.params=input\ desired1\ output1\ desired2\ output2\ question
+comment9.target=boolean\ checkPossibleInputs(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+numComments=11
