@@ -52,6 +52,16 @@ public class CMD {
         }
     }
     
+    public boolean isCloseToDesired(String input, String desired){
+        boolean isClose = false;
+        int count = 0;
+        desired = desired.trim().toLowerCase();
+        input = input.trim().toLowerCase();
+        for(int i = 0; i < desired.length(); i++){
+            
+        }
+    }
+    
     public boolean checkPossibleInputs(String input, String desired1, String output1, String desired2, String output2, String question) throws InterruptedException{
         Scanner sc = new Scanner(System.in);
         boolean pass = false;
