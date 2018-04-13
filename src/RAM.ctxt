@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=RAM
+comment1.params=
+comment1.target=RAM()
+comment2.params=
+comment2.target=void\ updateInv()
+comment3.params=i
+comment3.target=void\ addItem(Item)
+comment3.text=\r\n\ Adds\ an\ {@link\ Item}\ to\ the\ inventory\r\n\r\n\ @param\ i\ the\ {@link\ Item}\ to\ be\ added\ to\ the\ inventory\r\n
+comment4.params=itemName
+comment4.target=boolean\ hasItem(java.lang.String)
+comment4.text=\r\n\ Determines\ whether\ or\ not\ an\ {@link\ Item}\ with\ the\ itemName\ is\ in\ the\r\n\ inventory\r\n\r\n\ @param\ itemName\ the\ name\ of\ the\ item\r\n\ @return\ true\ if\ an\ item\ with\ itemName\ is\ in\ the\ inventory,\ false\r\n\ \ \ \ \ \ \ \ \ otherwise\r\n
+comment5.params=itemName
+comment5.target=Item\ getItem(java.lang.String)
+comment5.text=\r\n\ Gets\ an\ {@link\ Item}\ with\ itemName\ from\ the\ inventory,\ provided\ it\r\n\ exists\ in\ the\ inventory.\r\n\r\n\ @param\ itemName\ the\ name\ of\ the\ item\r\n\ @return\ an\ {@link\ Item}\ that\ has\ the\ corresponding\ itemName,\ null\ if\r\n\ \ \ \ \ \ \ \ \ no\ such\ {@link\ Item}\ exists\r\n
+comment6.params=
+comment6.target=java.lang.String\ toString()
+numComments=7

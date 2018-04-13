@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Options
+comment1.params=
+comment1.target=Options()
+comment2.params=
+comment2.target=java.util.Map\ getOptions()
+comment3.params=idx
+comment3.target=java.lang.String\ getSingleOption(int)
+comment4.params=newOptionsSet
+comment4.target=void\ resetOptions(java.util.Map)
+comment5.params=
+comment5.target=void\ clearOptionSet()
+comment6.params=key\ val
+comment6.target=void\ addOption(java.lang.String,\ java.lang.String)
+comment7.params=idx
+comment7.target=void\ removeOption(int)
+comment8.params=
+comment8.target=java.lang.String\ displayOptions()
+numComments=9

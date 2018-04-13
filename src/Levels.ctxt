@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Levels
+comment1.params=levelsInGame
+comment1.target=Levels(java.util.List)
+comment2.params=l
+comment2.target=void\ addLevel(Level)
+comment3.params=
+comment3.target=java.util.Map\ getLevelsInGame()
+comment4.params=levelName
+comment4.target=Level\ getLevel(java.lang.String)
+comment5.params=levelName
+comment5.target=void\ removeLevel(java.lang.String)
+numComments=6
