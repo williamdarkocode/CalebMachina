@@ -3,11 +3,20 @@ import java.util.*;
 public class Blackbox {
     private Options ops;
     private CMD cmd;
+    private boolean booted;
+    private boolean camera;
+    private boolean geoSensor;
+    private boolean peerToPeer;
+    
 
     public Blackbox(){
         ops = new Options();
         //ops.addOption("My options");
         cmd = new CMD();
+        booted = false;
+        camera = false;
+        geoSensor = false;
+        peerToPeer = false;
 
     }
 
@@ -54,23 +63,43 @@ public class Blackbox {
         cmd.pause(500);
         response = sc.nextLine();
         cmd.pause(500);
-       //ops.addOption("Boot OS");
         cmd.checkPossibleInputs(response, "Yes", "Good. In order to get your OS online, you should be able to utilise some startup commands programmed into your Neural Net", 
         "No", "I cannot command your Operating System; I'm merely here to help. Your Neural Net should allow you to me aware of your environment and conduct actions accordingly.",
         "You're an extensively layered convolutional network. Your learning is unsupervised, hence, cannot be controlled. Do you understand?");
         cmd.pause(1000);
         cmd.space();
-        cmd.typeNewLine("I'm not completely sure what commands, but try something using keywords: 'boot', 'OS', 'turn on' ", 50);
+        cmd.typeNewLine("I'm not completely sure what commands, but try something using keywords: 'boot', 'OS', 'turn on', 'start' ", 50);
+        
+        //make Boot Os option available
+        ops.addOption("Boot Operating System", "Female Computer Voice: Booting Operating System...");
+        ops.addOption("Turn on Operarting System", "Female Computer Voice: Turing on Operating System...");
+        ops.addOption("Start Operating System", "Female Computer Voice: Starting up Operating System...");
+        
         cmd.pause(500);
         response = sc.nextLine();
-        Map m = new HashMap<String, String>();
-        m.put("Boot Operating System", "Female Computer Voice: Booting Operating System...");
-        m.put("Turn on Operating System", "Female Computer Voice: Turing on OS...");
-        //cmd.checkPossibleInputs(response, "Boot Operating System", "Female Computer Voice: Booting Operating System...", 
-        //"Turn on Operating System", "Female Computer Voice: Turing on OS...", "Try something using keywords: 'boot', 'OS', 'turn on'");
+        cmd.checkSeveral(response , ops.getOptions(), "Try something using keywords: 'boot', 'OS', 'turn on'");
         
-        cmd.checkSeveral(response , m, "Try something using keywords: 'boot', 'OS', 'turn on'");
+        booted = true;
         
+        //ops.changeOption(1);
+        
+        
+    }
+    
+    
+    public boolean isLegal(boolean[] conditions){
+        int count = 0;
+        for(boolean b: conditions){
+            if(b){
+                count++;
+            }
+        }
+        if(count == conditions.length){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public void generateResponce(String input){
