@@ -11,6 +11,19 @@ public class CMD {
         System.out.print('\u000C');  
     }
     
+    public String indent(int numTimes){
+        String s = "";
+        for(int i = 0; i < numTimes; i++){
+            s+="    ";
+        }
+        return s;
+    }
+    
+    public String getObjectType(Object obj){
+        String type = obj.getClass()+"";
+        return type.trim().substring(type.indexOf(" ")+1);
+    }
+    
     
     public void print(String str) {
         System.out.println(str);
@@ -54,11 +67,11 @@ public class CMD {
     
     public double CPE(String input, String possibleInput){
         String[] inputSplit = input.split(" ");
-        int count = 0;
+        double count = 0.0;
         int length = inputSplit.length;
         for(String s: inputSplit){
             if(possibleInput.indexOf(s) >=0){
-                count+=1;
+                count+=1.0;
             }
         }
         double percentage = (count / length) * 100;
@@ -66,11 +79,11 @@ public class CMD {
     }
     
     //check for several inputs here
-    public void checkSeveral(String input, Map<String, String> inputOutputPair, String question) throws InterruptedException{ 
+    public String checkSeveral(String input, Map<String, String> inputOutputPair, String question) throws InterruptedException{ 
         input = input.trim().toLowerCase();
         Scanner sc = new Scanner(System.in);
         boolean pass = false;
-
+        String str = "";
         // making clone to use for checking input without caps
         Map clone = new HashMap<String, String>();
         for(String s: inputOutputPair.keySet()){
@@ -83,22 +96,24 @@ public class CMD {
             typeNewLine(closestOutput, 50);
         }
         else {
-            recurBasedOnPercent(input, clone, question);
+            str = recurBasedOnPercent(input, clone, question);
+            
         }
         
-        
+        return str;
     }
     
-    public void recurBasedOnPercent(String input, Map<String, String> map, String question) throws InterruptedException{
+    public String recurBasedOnPercent(String input, Map<String, String> map, String question) throws InterruptedException{
         Scanner sc = new Scanner(System.in);
         String query;
         double percent = 0.0;
-        String posInp = "";
-        String posOut = "";
+        String posInp = null;
+        String posOut = null;
         
         if(map.containsKey(input)){
             posOut = map.get(input)+"";
             typeNewLine(posOut, 50);
+            return input;
         }
         else {
             for(String s: map.keySet()){
@@ -113,10 +128,10 @@ public class CMD {
             pause(1000);
             query = sc.nextLine();
             pause(1000);
-            if(query.trim().toLowerCase().equals("yes")){
+            if(query.trim().toLowerCase().equals("yes") || query.trim().toLowerCase().indexOf("yes") > 0){
                 recurBasedOnPercent(posInp, map, question);
             }
-            else if(query.trim().toLowerCase().equals("no")){
+            else if(query.trim().toLowerCase().equals("no")|| query.trim().toLowerCase().indexOf("no") > 0){
                 pause(1000);
                 typeNewLine("I'm sorry I cannot help you with your request.", 50);
                 pause(500);
@@ -134,9 +149,10 @@ public class CMD {
                 pause(1000);
                 query = sc.nextLine();
                 recurBasedOnPercent(query, map, question);
+                return posInp;
             }
+            return posInp;
         }
-        
     }
     
     
@@ -221,4 +237,7 @@ public class CMD {
         }
     }
     
+    
+    public void enterFolder(){
+    }
 }

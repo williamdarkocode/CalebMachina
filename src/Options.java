@@ -44,9 +44,9 @@ public class Options{
     
     
     public String displayOptions(){
-        String display = "";
+        String display = "" + "\n";
         for(int i = 0; i < this.opsMap.keySet().size(); i++){
-            display+= "***  " + i + ") " + this.opsMap.keySet().toArray()[i] + "  ***";
+            display+= "***  " + i + ") " + this.opsMap.keySet().toArray()[i] + "  ***" + "\n";
         }
         return display;
     }
