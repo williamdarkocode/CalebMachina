@@ -14,8 +14,11 @@ public class ComplexEngine implements Engine{
     public ComplexEngine(Game g){
         player = g.getPlayer();
         levelsInGame = g.getLevels();
-        Levels mappedLevels = new Levels(levelsInGame);
-        levelsMap = mappedLevels.getLevelsInGame();
+        Map mappedLevels = new HashMap<String, Level>();
+        for (Level l : levelsInGame) {
+            mappedLevels.put(l.getName(), l);
+        }
+        levelsMap = mappedLevels;
         trackerMap = new HashMap<String, Level>();
         nextLevelName = null;
     }

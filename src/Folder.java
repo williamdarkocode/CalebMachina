@@ -1,20 +1,13 @@
 import java.util.*;
 
-public class Folder extends Node{
-    private String name;
-    private CMD cmd;
-    public Folder(String name) {
-        super(name);
-        this.name = name;
-        cmd = new CMD();
+public class Folder<T> extends Node<T>{
+    
+    public Folder(T data, String name){
+        super(data, name);
     }
     
-    public Folder(String name, Map<String, DataItem> littleKiddies){
-        super(name);
-        this.name = name;
-        addChildren(littleKiddies);
+    public Folder(T data){
+        super(data);
     }
-    
-    
     
 }

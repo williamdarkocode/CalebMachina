@@ -25,4 +25,6 @@ public interface Game{
      * @see Player
      */
     public Player getPlayer();
+    
+    public String getName();
 }

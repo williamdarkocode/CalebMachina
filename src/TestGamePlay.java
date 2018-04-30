@@ -1,5 +1,4 @@
 
-
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -32,14 +31,16 @@ public class TestGamePlay
 
     @Test
     public void testGame(){
-        //Wake wake = new Wake();
+        Wake w = new Wake();
         Blackbox b = new Blackbox();
+        CommandPrompt c = new CommandPrompt();
         Inventory ram = new RAM();
         Player p = new Caleb();
-        
-       try{
-           //wts.testGenPers();
-           b.enter(p);
+
+        try{
+            //wts.testGenPers();
+            //c.enter(p);
+            c.enter(p);
         }
         catch(InterruptedException err){
             System.out.println("oh noooo");

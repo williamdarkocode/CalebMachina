@@ -7,4 +7,6 @@ comment1.text=\r\n\ Gets\ a\ list\ of\ all\ the\ the\ locations\ in\ the\ game\r
 comment2.params=
 comment2.target=Player\ getPlayer()
 comment2.text=\r\n\ Get\ the\ player\ for\ the\ game\r\n\r\n\ @return\ a\ player\ for\ the\ game\r\n\ @see\ Player\r\n
-numComments=3
+comment3.params=
+comment3.target=java.lang.String\ getName()
+numComments=4
