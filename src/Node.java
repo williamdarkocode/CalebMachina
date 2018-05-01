@@ -70,7 +70,7 @@ public class Node<T> {
 
     public List<Node<T>> getChildren() {
         if(this.children.size() == 0) {
-            return null;
+            return new ArrayList<>();
         }
         return this.children;
     }
@@ -137,14 +137,16 @@ public class Node<T> {
 
         num+=2;
 
-        System.out.println("  "+this.getName());
-        //System.out.println("");
-        //System.out.print(indent(num));
+        if(this.getChildren().size() > 0) {
+            System.out.println("  "+this.getName());
+            //System.out.println("");
+            //System.out.print(indent(num));
 
-        for(Node n: this.getChildren()){
-            System.out.println("");
-            System.out.print(indent(num));
-            System.out.println(extra+" "+n.getName());
+            for(Node n: this.getChildren()){
+                System.out.println("");
+                System.out.print(indent(num));
+                System.out.println(extra+" "+n.getName());
+            }
         }
 
     }

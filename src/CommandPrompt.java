@@ -32,15 +32,12 @@ public class CommandPrompt implements Level {
 
         rootDirectory.addChildren(fL);
 
-        
         path = rootDirectory.getName() + ":\\" ;
-
         curNode = rootDirectory;
         prevNode = curNode.getParent();
 
         nameNodePair = new HashMap<String, Node>();
-        
-        
+
         actual = new Options();
         actual.addOption("ls", "");
         actual.addOption("mkdir", "");
@@ -90,21 +87,23 @@ public class CommandPrompt implements Level {
     }
 
     public void printPath() throws InterruptedException{
-        
+
         cmd.typeNewLine(path + ">", 5);
     }
 
     public String updatePath(Node n) throws InterruptedException{
-        
         String newPath = "";
-        if(n.getParent().equals(null)) {
-            newPath+="C:\\"+newPath;
+        if(n.equals(rootDirectory)) {
+            newPath = n.getName()+ "\\" + newPath;
+            newPath = "C:\\"+newPath;
             return newPath;
         }
         else {
-            newPath = n.getName() + newPath;
+            newPath = n.getName() + "\\" + newPath;
             updatePath(n.getParent());
         }
+        
+        newPath = "C:\\"+rootDirectory.getName()+"\\"+newPath;
         return newPath;
         //this.path+=curNode.getName() + "\\";
         //this.prevPath = path.substring(0,path.indexOf(curNode.getName()));
@@ -113,8 +112,8 @@ public class CommandPrompt implements Level {
     public void updateHash(){
         List<Node> children = curNode.getChildren();
         nameNodePair.clear();
-        if(children == null) {
-            nameNodePair.put(null, null);
+        if(children.equals(null)) {
+            nameNodePair = new HashMap<String, Node>();
         }
         else {
             for(Node n: children){
@@ -155,7 +154,7 @@ public class CommandPrompt implements Level {
     }
 
     public void cdIn(String name) throws InterruptedException {
-        if(nameNodePair.containsKey(name)){
+        if(nameNodePair.containsKey(name.toUpperCase())){
             curNode = nameNodePair.get(name.toUpperCase());
             prevNode = curNode.getParent();
             updateHash();
@@ -185,7 +184,7 @@ public class CommandPrompt implements Level {
             printPath();
         }
         else {
-            
+
             prevNode = curNode;
             curNode = curNode.getParent();
             updateHash();
@@ -195,6 +194,7 @@ public class CommandPrompt implements Level {
         }
 
     }
+
     public void printPrevPath()  throws InterruptedException {
         cmd.typeNewLine(prevPath + ">", 5);
     }
@@ -221,6 +221,9 @@ public class CommandPrompt implements Level {
         }
         else if(response.equals("ls")){
             ls();
+        }
+        else if(response.equals("cd")) {
+            printPath();
         }
         else if(response.equals("cd..") || response.equals("cd ..")){
             cdOut();
