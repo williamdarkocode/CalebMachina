@@ -27,6 +27,10 @@ public class Node<T> {
         return this.parent;
     }
 
+    public void setChildren(List<Node<T>> kiddies) {
+        this.children = kiddies;
+    }
+
     public void addChild(Node<T> child) {
         child.setParent(this);
         this.children.add(child);
@@ -69,7 +73,7 @@ public class Node<T> {
     }
 
     public List<Node<T>> getChildren() {
-        if(this.children.size() == 0) {
+        if(this.getData().getClass().getName().indexOf("DataItem") >= 0) {
             return new ArrayList<>();
         }
         return this.children;
@@ -110,7 +114,14 @@ public class Node<T> {
         System.out.print(indent(num));
         System.out.println("");
         System.out.print(indent(num));
-        System.out.println(extra+" "+this.getName());
+        if(this.getData().getClass().getName().indexOf("DataItem") >= 0) {
+            System.out.println(extra+" "+this.getName()+".data");
+        }
+        else {
+            System.out.println(extra+" "+this.getName()+".dir");
+        }
+        
+        
 
         /*
         s+=indent(num);
@@ -125,8 +136,10 @@ public class Node<T> {
             num++;
         }
 
-        for(Node<T> n: this.getChildren()){
-            n.preOrder(num);
+        if(this.getChildren() != null) {
+            for(Node<T> n: this.getChildren()){
+                n.preOrder(num);
+            }
         }
         //return s;
     }
@@ -145,7 +158,12 @@ public class Node<T> {
             for(Node n: this.getChildren()){
                 System.out.println("");
                 System.out.print(indent(num));
-                System.out.println(extra+" "+n.getName());
+                if (n.getData().getClass().getName().indexOf("DataItem") >= 0) {
+                    System.out.println(extra+" "+n.getName()+".data");
+                }
+                else {
+                    System.out.println(extra+" "+n.getName()+".dir");
+                }
             }
         }
 

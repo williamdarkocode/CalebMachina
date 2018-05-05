@@ -9,7 +9,7 @@ public class CommandPrompt implements Level {
     private Node curNode;
     private Node prevNode;
     private String path;
-    private String prevPath;
+    private String pathTracker;
     private List<String> pathList; 
     private Map<String, Node> nameNodePair;
     private Scanner sc;
@@ -21,7 +21,7 @@ public class CommandPrompt implements Level {
         rootDirectory = new Node("Root directory of System", "ROOT DIR");
         //adding first layer of children
         List<Node> fL = new ArrayList<>();
-        fL.add(new Node("DataItem PlaceHolder", "F1"));
+        fL.add(new Node("DataItem PlaceHolder", "f1"));
         fL.add(new Node("DataItem PlaceHolder", "F2"));
         fL.add(new Node("DataItem PlaceHolder", "F3"));
         fL.add(new Node("DataItem PlaceHolder", "F4"));
@@ -88,23 +88,21 @@ public class CommandPrompt implements Level {
 
     public void printPath() throws InterruptedException{
 
-        cmd.typeNewLine(path + ">", 5);
+        cmd.typeNewLine("C:\\" + path + ">", 5);
     }
 
     public String updatePath(Node n) throws InterruptedException{
         String newPath = "";
         if(n.equals(rootDirectory)) {
-            newPath = n.getName()+ "\\" + newPath;
-            newPath = "C:\\"+newPath;
-            return newPath;
+            path = n.getName()+ "\\" + path;
+            return path;
         }
         else {
-            newPath = n.getName() + "\\" + newPath;
+            path = n.getName() + "\\" + path;
             updatePath(n.getParent());
         }
-        
-        newPath = "C:\\"+rootDirectory.getName()+"\\"+newPath;
-        return newPath;
+
+        return path;
         //this.path+=curNode.getName() + "\\";
         //this.prevPath = path.substring(0,path.indexOf(curNode.getName()));
     }
@@ -117,10 +115,12 @@ public class CommandPrompt implements Level {
         }
         else {
             for(Node n: children){
-                nameNodePair.put(n.getName().trim().toUpperCase(), n);
+                nameNodePair.put(n.getName().trim(), n);
             }
         }
     }
+
+    
 
     public void ls() throws InterruptedException{
         curNode.displayChildren(0);
@@ -133,14 +133,14 @@ public class CommandPrompt implements Level {
     }
 
     public void displayData(Node n){
-        n.getData().toString();
+        System.out.println(n.getData());
     }
 
     public void displayData(String inp) throws InterruptedException{
         inp = inp.trim().toLowerCase();
         String[] sArr = inp.split(" ");
-        if(sArr[0].equals("node") && nameNodePair.containsKey(sArr[1].toUpperCase())) {
-            displayData(nameNodePair.get(sArr[1].toUpperCase()));
+        if(sArr[0].equals("node") && nameNodePair.containsKey(inp.substring(4).trim())) {
+            displayData(nameNodePair.get(inp.substring(4).trim()));
             printPath();
         }
         else {
@@ -149,20 +149,59 @@ public class CommandPrompt implements Level {
         }
     }
 
-    public void touch(String input) {
+    public void touch(String input) throws InterruptedException{
         DataItem file = new DataItem(input, "Caleb SpyWare", 1);
+        Node newNode = new Node(file, input);
+        //List<Node> deadKiddies = null;
+        //newNode.setChildren(deadKiddies);
+
+        if (nameNodePair.containsKey(input) /*|| nameNodePair.containsKey(input.toUpperCase()) || nameNodePair.containsKey(input.toLowerCase())*/) {
+            cmd.typeNewLine("File name already taken in directory!", 10);
+            printPath();
+        }
+        else {
+            curNode.addChild(newNode, input);
+            printPath();
+            updateHash();
+        }
     }
 
     public void cdIn(String name) throws InterruptedException {
-        if(nameNodePair.containsKey(name.toUpperCase())){
-            curNode = nameNodePair.get(name.toUpperCase());
+        name = name.trim();
+        if(nameNodePair.containsKey(name) /*&& nameNodePair.get(name).getChildren() != null*/ && nameNodePair.get(name).getData().getClass().getName().indexOf("DataItem") < 0){
+            curNode = nameNodePair.get(name);
             prevNode = curNode.getParent();
             updateHash();
+            pathTracker = "";
+            path = "";
             path = updatePath(curNode);
 
             //updatePrevPat
             printPath();
         }
+        /*
+        else if((nameNodePair.containsKey(name.toUpperCase()) /*&& nameNodePair.get(name.toUpperCase()).getChildren() != null) 
+        && nameNodePair.get(name.toUpperCase()).getData().getClass().getName().indexOf("DataItem") < 0){
+        curNode = nameNodePair.get(name.toUpperCase());
+        prevNode = curNode.getParent();
+        updateHash();
+        path = updatePath(curNode);
+
+        //updatePrevPat
+        printPath();
+        }
+         */
+        else if(nameNodePair.containsKey(name) /*&& nameNodePair.get(name).getChildren() == null */&& nameNodePair.get(name).getData().getClass().getName().indexOf("DataItem") >= 0) {
+            cmd.typeNewLine("The directory name is invalid", 10);
+            printPath();
+        }
+        /*
+        else if(nameNodePair.containsKey(name.toUpperCase()) /*&& nameNodePair.get(name.toUpperCase()).getChildren() == null 
+        && nameNodePair.get(name.toUpperCase()).getData().getClass().getName().indexOf("DataItem") >= 0) {
+        cmd.typeNewLine("The directory name is invalid", 10);
+        printPath();
+        }
+         */
         else {
             cmd.typeNewLine("The System cannot find the path specified", 10);
             printPath();
@@ -170,16 +209,40 @@ public class CommandPrompt implements Level {
     }
 
     public String canCd(String s){
-        s = s.trim().toUpperCase();
-        String[] sArr = s.split(" ");
-        String dirName = sArr[1];
+        s = s.trim();
+        String dirName = s.substring(2).trim();
         return dirName;
+    }
+    
+    public String canMkdir(String s) {
+        s = s.trim();
+        String dirName = s.substring(5).trim();
+        return dirName;
+    }
+    
+    public void mkdir(String name) throws InterruptedException{
+        Node newDir = new Node("Sub-Directory "+  name, name);
+        if (nameNodePair.containsKey(name) && nameNodePair.get(name).getData().getClass().getName().indexOf("DataItem") < 0 /*|| nameNodePair.containsKey(input.toUpperCase()) || nameNodePair.containsKey(input.toLowerCase())*/) {
+            cmd.typeNewLine("A subdirectory or file '" + name + "' already exists.", 10);
+            printPath();
+        }
+        else {
+            curNode.addChild(newDir, name);
+            updateHash();
+            pathTracker = "";
+            path = "";
+            path = updatePath(curNode);
+            printPath();
+            
+        }
     }
 
     public void cdOut() throws InterruptedException {
         if(curNode.equals(rootDirectory) || curNode.getParent() == null){
             curNode = rootDirectory;
             prevNode = rootDirectory;
+            pathTracker = "";
+            path = "";
             path = updatePath(curNode);
             printPath();
         }
@@ -188,6 +251,8 @@ public class CommandPrompt implements Level {
             prevNode = curNode;
             curNode = curNode.getParent();
             updateHash();
+            pathTracker = "";
+            path = "";
             path = updatePath(curNode);
 
             printPath();
@@ -195,9 +260,6 @@ public class CommandPrompt implements Level {
 
     }
 
-    public void printPrevPath()  throws InterruptedException {
-        cmd.typeNewLine(prevPath + ">", 5);
-    }
 
     public void setCommandPrompt() throws InterruptedException{
         cmd.typeNewLine("Macrohard Doors [Version 10.0.16299.371]", 5);
@@ -214,7 +276,7 @@ public class CommandPrompt implements Level {
 
     public void control() throws InterruptedException{
         this.response = sc.nextLine();
-        response = response.trim().toLowerCase();
+        response = response.trim();
 
         if(response.equals("clear")){
             clear();
@@ -222,13 +284,14 @@ public class CommandPrompt implements Level {
         else if(response.equals("ls")){
             ls();
         }
-        else if(response.equals("cd")) {
+        else if(response.equals("cd") || response.equals("CD")) {
             printPath();
         }
-        else if(response.equals("cd..") || response.equals("cd ..")){
+        else if(response.equals("cd..") || response.equals("cd ..") || response.equals("CD..") || response.equals("CD ..")){
             cdOut();
         }
-        else if(!(response.equals("cd..") || response.equals("cd ..")) && response.split(" ")[0].equals("cd")){
+        else if(!(response.equals("cd..") || response.equals("cd ..") || response.equals("CD..") || response.equals("CD ..")) && (response.split(" ")[0].equals("cd") 
+            || response.split(" ")[0].equals("CD") )){
             cdIn(canCd(response));
         }
         else if(response.equals("path-config")){
@@ -240,10 +303,30 @@ public class CommandPrompt implements Level {
         else if(!response.equals("node") && response.split(" ")[0].equals("node")){
             displayData(response);
         }
+        else if(response.equals("touch") || response.equals("TOUCH")) {
+            cmd.typeNewLine(response + ": Missing file operand", 10);
+        }
+        else if(response.indexOf("touch") == 0 && !response.equals("touch")) {
+            String fileName = response.substring(5).trim();
+            touch(fileName);
+        }
+        else if(response.equals("mkdir") || response.equals("MKDIR")) {
+            cmd.typeNewLine("The syntax of the command is incorrect", 10);
+            cmd.typeNewLine("Syntax: mkdir 'sub-directory name'.", 10);
+        }
+        else if (!(response.equals("mkdir") || response.equals("MKDIR")) && response.split(" ")[0].trim().toLowerCase().equals("mkdir")) {
+            mkdir(canMkdir(response));
+        }
+        
         else {
-            cmd.checkSeveral(response, actual.getOptions(), "You're scheduled for termination, remove possible crash logs, and copy necesarry files");
-            cmd.typeNewLine("'"+response+"' "+ " is not recognized as an internal or external command, operable program or batch file", 10);
-            printPath();
+            //cmd.checkSeveral(response, actual.getOptions(), "You're scheduled for termination, remove possible crash logs, and copy necesarry files");
+            if(!response.equals("")) {
+                cmd.typeNewLine("'"+response+"' "+ " is not recognized as an internal or external command, operable program or batch file", 10);
+                printPath();
+            }
+            else {
+                printPath();
+            }
         }
 
     }
