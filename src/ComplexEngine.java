@@ -5,7 +5,7 @@ public class ComplexEngine implements Engine{
     private Player player;
     private List<Level> levelsInGame;
     private Map<String, Level> levelsMap;
-    private Map<String, Level> trackerMap;
+    //private Map<String, Level> trackerMap;
     //private Level level;
     //private Game curGame;
     private String nextLevelName;
@@ -19,7 +19,7 @@ public class ComplexEngine implements Engine{
             mappedLevels.put(l.getName(), l);
         }
         levelsMap = mappedLevels;
-        trackerMap = new HashMap<String, Level>();
+        //trackerMap = new HashMap<String, Level>();
         nextLevelName = null;
     }
 
@@ -31,20 +31,22 @@ public class ComplexEngine implements Engine{
     public void start() throws InterruptedException{
         Level levelOne = levelsInGame.get(0);
         nextLevelName = levelOne.enter(player);
-        trackerMap.put(levelOne.getName(), levelOne);
+        //trackerMap.put(levelOne.getName(), levelOne);
     }
 
     public boolean isGameDone(){
-        return trackerMap.containsKey("EndLevel");
+        return nextLevelName == null;
+        //return trackerMap.containsKey("EndLevel");
     }
 
     @Override
     public void goToNextLevel() throws InterruptedException, IllegalStateException{
         if(levelsMap.containsKey(nextLevelName)){
-            trackerMap.put(nextLevelName, levelsMap.get(nextLevelName));
+            //trackerMap.put(nextLevelName, levelsMap.get(nextLevelName));
             Level nextLevel = levelsMap.get(nextLevelName);
             nextLevelName = nextLevel.enter(player);
         }
+        System.out.println(levelsMap.keySet().toString() + nextLevelName);
         throw new IllegalStateException("Level '" + nextLevelName + "'" +
                 " is not defined for game.");
     }

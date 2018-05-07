@@ -35,9 +35,10 @@ public class Blackbox implements Level{
     }
 
     public String enter(Player p) throws InterruptedException{
-        String nextLevelName = "";
+        String nextLevelName = "CommandPrompt";
         Scanner sc = new Scanner(System.in);
         nextLevelName = explain(1000);
+        nextLevelName = "CommandPrompt";
         return nextLevelName;
     }
 
@@ -125,7 +126,7 @@ public class Blackbox implements Level{
         } //
         //cmd.typeNewLine(end, 10);
 
-        while(!end.equals("shutdown operating system")){
+        while(!end.toLowerCase().equals("shutdown operating system")){
             response = sc.nextLine();
             end = cmd.checkSeveral(response, ops.getOptions(), "AVA: You can always say: 'Hello Ava' then 'What are my options?'");
             if(end.equals("turn on camera")){
