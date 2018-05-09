@@ -37,23 +37,24 @@ public class Blackbox implements Level{
     public String enter(Player p) throws InterruptedException{
         String nextLevelName = "CommandPrompt";
         Scanner sc = new Scanner(System.in);
-        nextLevelName = explain(1000);
+        explain(1000);
         nextLevelName = "CommandPrompt";
         return nextLevelName;
     }
 
     public String explain(int forepause) throws InterruptedException{
         Scanner sc = new Scanner(System.in);
-        cmd.typeNewLine("Blackbox", 50);
+        cmd.typeNewLine("B  L   A   C   K   B   O   X", 50);
         cmd.pause(1000);
         cmd.space();
         cmd.pause(1000);
-        cmd.typeNewLine("LOADING", 50);
+        cmd.typeNewLine("L  O   A   D   I   N   G", 50);
         cmd.typeNewLine("************************************************************************************************************************************************************************************", 10);
         cmd.space();
+        cmd.clear();
         cmd.pause(1000);
         Thread.sleep(forepause);
-        cmd.typeSameLine("Hello Caleb.", 20);
+        cmd.typeSameLine("AVA: Hello Caleb.", 20);
         cmd.pause(1000);
         cmd.typeSameLine("My name is Ava;", 20);
         cmd.pause(1000);
@@ -78,7 +79,7 @@ public class Blackbox implements Level{
             "AVA: You're an extensively layered convolutional network. Your learning is unsupervised, hence, cannot be controlled. Do you understand?");
         cmd.pause(1000);
         cmd.space();
-        cmd.typeNewLine("I'm not completely sure what commands, but try something using keywords: 'boot', 'OS', 'turn on', 'start' ", 20);
+        cmd.typeNewLine("AVA: I'm not completely sure what commands, but try something using keywords: 'boot', 'OS', 'turn on', 'start' ", 20);
 
         //make Boot Os option available
         ops.addOption("Boot Operating System", "Female Computer Voice: Booting Operating System...");
@@ -93,48 +94,82 @@ public class Blackbox implements Level{
         cmd.typeNewLine("AVA: Now that your OS is booted, you can proceed fully functioning. ", 20);
         cmd.pause(1000);
 
-        cmd.typeNewLine("AVA: If you need any help, you can always ask say: 'Hello Ava' then 'What are my options'.", 20);
+        cmd.typeNewLine("AVA: If you need any help, you can always ask; say: 'Hello Ava', then, 'What are my options'.", 20);
         ops.changeOption(0, "Female Computer Voice: Your Operating System is already booted");
         ops.changeOption(1, "Female Computer Voice: Your Operating System is already booted");
         ops.changeOption(2, "Female Computer Voice: Your Operating System is already booted");
 
-        ops.addOption("hi ava", "Yes Caleb, How can I help you?");
-        ops.addOption("help me ava", "Yes Caleb, How can I help you?");
-        ops.addOption("hello ava", "Yes Caleb, How can I help you?");
+        ops.addOption("Switch to rear view", "Female Computer Voice: Camera is not switched on.");
+        ops.addOption("Switch to front view", "Female Computer Voice: Camera is not switched on.");
+
+        ops.addOption("hi ava", "AVA: Yes Caleb, How can I help you?");
+        ops.addOption("help me ava", "AVA: Yes Caleb, How can I help you?");
+        ops.addOption("hello ava", "AVA: Yes Caleb, How can I help you?");
         ops.addOption("Shutdown Operating System", "Female Computer Voice: SYSTEM SHUTDOWN...");
         ops.addOption("What are my options", "AVA: These are your legal options: " + secondOps.displayOptions());
         ops.addOption("Turn on camera", "Camera switched on...");
+        ops.addOption("ava", "AVA: Yes Caleb, How can I help you?");
+
         response = sc.nextLine();
+
+        if(response.trim().toLowerCase().equals("turn on camera")){
+            ops.changeOption(3, "Female Computer Voice: Switching to rear view camera");
+            ops.changeOption(4, "Female Computer Voice: Switching to front view camera");
+            //cmd.typeNewLine(end, 10);
+        } 
+
+        if(response.trim().toLowerCase().equals("shutdown operating system")){
+            cmd.typeNewLine("Ava: Caleb, you should know that due to your poor performance in your previous Turing Test, " 
+                + "\n" + "    You are scheduled for termination tommorow. Have a great day!",30);
+
+            cmd.pause(5000);
+            return "CommandPrompt";
+        }
+
         String end = cmd.checkSeveral(response, ops.getOptions(), "AVA: You can always say: 'Hello Ava' then 'What are my options?'");
         if(end.equals("turn on camera")){
-            ops.addOption("Switch to rear view", "Female Computer Voice: Switching to rear view camera");
-            ops.addOption("Switch to front view", "Female Computer Voice: Switching to front view camera");
+            ops.changeOption(3, "Female Computer Voice: Switching to rear view camera");
+            ops.changeOption(4, "Female Computer Voice: Switching to front view camera");
             //cmd.typeNewLine(end, 10);
         } 
         if(end.equals("shutdown operating system")){
+            cmd.typeNewLine("Ava: Caleb, you should know that due to your poor performance in your previous Turing Test, " 
+                + "\n" + "    You are scheduled for termination tommorow. Have a great day!",30);
+
+            cmd.pause(5000);
             return "CommandPrompt";
         }
         response = sc.nextLine();
         end = cmd.checkSeveral(response, ops.getOptions(), "AVA: You can always say: 'Hello Ava' then 'What are my options?'");
         if(end.equals("shutdown operating system")){
+            cmd.typeNewLine("Ava: Caleb, you should know that due to your poor performance in your previous Turing Test, " 
+                + "\n" + "    You are scheduled for termination tommorow. Have a great day!",30);
+
+            cmd.pause(5000);
             return "CommandPrompt";
         }
+
         if(end.equals("turn on camera")){
-            ops.addOption("Switch to rear view", "Female Computer Voice: Switching to rear view camera");
-            ops.addOption("Switch to front view", "Female Computer Voice: Switching to front view camera");
+            ops.changeOption(3, "Female Computer Voice: Switching to rear view camera");
+            ops.changeOption(4, "Female Computer Voice: Switching to front view camera");
             //cmd.typeNewLine(end, 10);
         } //
         //cmd.typeNewLine(end, 10);
 
-        while(!end.toLowerCase().equals("shutdown operating system")){
+        while(!end.trim().toLowerCase().equals("shutdown operating system")){
             response = sc.nextLine();
             end = cmd.checkSeveral(response, ops.getOptions(), "AVA: You can always say: 'Hello Ava' then 'What are my options?'");
-            if(end.equals("turn on camera")){
-                ops.addOption("Switch to rear view", "Female Computer Voice: Switching to rear view camera");
-                ops.addOption("Switch to front view", "Female Computer Voice: Switching to front view camera");
+            if(end.trim().toLowerCase().equals("turn on camera")){
+                System.out.println("reached here : " + end + ops.getOptions().get(end) + ops.displayOptions() + ops.getOptions().values().toString());
+                ops.changeOption(3, "Female Computer Voice: Switching to rear view camera");
+                ops.changeOption(4, "Female Computer Voice: Switching to front view camera");
                 //cmd.typeNewLine(ops.displayOptions(), 10);
             } 
-            if(end.equals("shutdown operating system")){
+            if(end.trim().toLowerCase().equals("shutdown operating system")){
+                cmd.typeNewLine("Ava: Caleb, you should know that due to your poor performance in your previous Turing Test, " 
+                    + "\n" + "    You are scheduled for termination tommorow. Have a great day!",30);
+
+                cmd.pause(5000);
                 return "CommandPrompt";
             }
             //cmd.typeNewLine(end, 5);
@@ -168,6 +203,5 @@ public class Blackbox implements Level{
         queryAnswerPair.put("ava", "Yes Caleb, How can I help you?");
 
     }
-
 
 }

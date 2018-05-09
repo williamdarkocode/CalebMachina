@@ -5,11 +5,8 @@ public class ComplexEngine implements Engine{
     private Player player;
     private List<Level> levelsInGame;
     private Map<String, Level> levelsMap;
-    //private Map<String, Level> trackerMap;
-    //private Level level;
-    //private Game curGame;
-    private String nextLevelName;
 
+    private String nextLevelName;
 
     public ComplexEngine(Game g){
         player = g.getPlayer();
@@ -19,7 +16,6 @@ public class ComplexEngine implements Engine{
             mappedLevels.put(l.getName(), l);
         }
         levelsMap = mappedLevels;
-        //trackerMap = new HashMap<String, Level>();
         nextLevelName = null;
     }
 
@@ -31,35 +27,33 @@ public class ComplexEngine implements Engine{
     public void start() throws InterruptedException{
         Level levelOne = levelsInGame.get(0);
         nextLevelName = levelOne.enter(player);
-        //trackerMap.put(levelOne.getName(), levelOne);
     }
 
     public boolean isGameDone(){
         return nextLevelName == null;
-        //return trackerMap.containsKey("EndLevel");
     }
 
     @Override
     public void goToNextLevel() throws InterruptedException, IllegalStateException{
         if(levelsMap.containsKey(nextLevelName)){
-            //trackerMap.put(nextLevelName, levelsMap.get(nextLevelName));
             Level nextLevel = levelsMap.get(nextLevelName);
             nextLevelName = nextLevel.enter(player);
         }
-        System.out.println(levelsMap.keySet().toString() + nextLevelName);
-        throw new IllegalStateException("Level '" + nextLevelName + "'" +
+        else {
+            System.out.println(levelsMap.keySet().toString() + nextLevelName);
+            throw new IllegalStateException("Level '" + nextLevelName + "'" +
                 " is not defined for game.");
+        }
     }
-
 
 
     @Override
     public String toString(){
         String engineInfo;
         engineInfo =
-                "*SimpleEngine Information*\n" +
-                        "Player:{ " + player.toString() + " };\n" +
-                        "Next Location:{ " + nextLevelName + " };\n";
+        "*SimpleEngine Information*\n" +
+        "Player:{ " + player.toString() + " };\n" +
+        "Next Location:{ " + nextLevelName + " };\n";
         engineInfo += "All Locations:{ ";
         for(Level l : levelsInGame){
             engineInfo += l.getName() + " ";
@@ -67,6 +61,5 @@ public class ComplexEngine implements Engine{
         engineInfo += "};\n";
         return engineInfo;
     }
-
 
 }

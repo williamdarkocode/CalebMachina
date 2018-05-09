@@ -85,20 +85,35 @@ public class CMD {
             clone.put(s.trim().toLowerCase(), inputOutputPair.get(s));
         }
 
-        if(clone.containsKey(input)){
-            String closestOutput = clone.get(input)+"";
-            pass = true;
-            typeNewLine(closestOutput, 50);
-            return str;
+        if(clone.containsKey(input.trim()) || clone.containsKey(input.trim().toLowerCase()) || clone.containsKey(input.trim().toUpperCase())) {
+            if(clone.containsKey(input.trim())) {
+                String closestOutput = clone.get(input.trim())+"";
+                pass = true;
+                typeNewLine(closestOutput, 50);
+                return input.trim().toLowerCase();
+            }
+            else if(clone.containsKey(input.trim().toLowerCase())) {
+                String closestOutput = clone.get(input.trim().toLowerCase())+"";
+                pass = true;
+                typeNewLine(closestOutput, 50);
+                return input.trim().toLowerCase();
+            }
+            else {
+                String closestOutput = clone.get(input.trim().toUpperCase())+"";
+                pass = true;
+                typeNewLine(closestOutput, 50);
+                return input.trim().toLowerCase();
+            }
         }
         else {
             str = recurBasedOnPercent(input, clone, question);
-            return str;
+            return str.trim().toLowerCase();
         }
         //return str;
     }
     
     
+
     public String recurBasedOnPercent(String input, Map<String, String> map, String question) throws InterruptedException{
         Scanner sc = new Scanner(System.in);
         String query = input;
@@ -106,15 +121,27 @@ public class CMD {
         String posInp = null;
         String posOut = null;
 
-        if(map.containsKey(input.trim().toLowerCase())){
-            posOut = map.get(input)+"";
-            typeNewLine(posOut, 50);
-            return posInp;
+        if(map.containsKey(input.trim()) || map.containsKey(input.trim().toLowerCase()) || map.containsKey(input.trim().toUpperCase())){
+            if(map.containsKey(input.trim())) {
+                posOut = map.get(input.trim())+"";
+                typeNewLine(posOut, 50);
+                return input.trim().toLowerCase();
+            }
+            else if(map.containsKey(input.trim().toLowerCase())) {
+                posOut = map.get(input.trim().toLowerCase())+"";
+                typeNewLine(posOut, 50);
+                return input.trim().toLowerCase();
+            }
+            else {
+                posOut = map.get(input.trim().toUpperCase())+"";
+                typeNewLine(posOut, 50);
+                return input.trim().toLowerCase();
+            }
         }
         else {
             for(String s: map.keySet()){
-                if(CPE(input, s) >= percent){
-                    percent = CPE(input, s);
+                if(CPE(input.trim().toLowerCase(), s.trim().toLowerCase()) >= percent){
+                    percent = CPE(input.trim().toLowerCase(), s.trim().toLowerCase());
                     posInp = s;
                     posOut = map.get(s);
                 }
@@ -125,7 +152,8 @@ public class CMD {
             query = sc.nextLine();
             pause(1000);
             if(query.trim().toLowerCase().equals("yes") || query.trim().toLowerCase().indexOf("yes") >= 0){
-                recurBasedOnPercent(posInp, map, question);
+                posInp =  recurBasedOnPercent(posInp, map, question);
+                return posInp;
             }
             else if(query.trim().toLowerCase().equals("no")|| query.trim().toLowerCase().indexOf("no") >= 0){
                 pause(1000);
@@ -135,7 +163,8 @@ public class CMD {
                 pause(1000);
                 query = sc.nextLine();
                 pause(1000);
-                recurBasedOnPercent(query, map, question);
+                posInp =  recurBasedOnPercent(query, map, question);
+                return posInp;
             }
             else {
                 pause(1000);
@@ -144,10 +173,10 @@ public class CMD {
                 typeNewLine(question, 20);
                 pause(1000);
                 query = sc.nextLine();
-                recurBasedOnPercent(query, map, question);
+                posInp = recurBasedOnPercent(query, map, question);
                 return posInp;
             }
-            return posInp;
+            //return posInp;
         }
     }
 

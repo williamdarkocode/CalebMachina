@@ -67,13 +67,19 @@ public class CommandPrompt implements Level {
 
     @Override
     public String enter(Player p) throws InterruptedException{
+        cmd.clear();
         String nextLevelName = "";
         cmd.pause(1000);
-        cmd.typeNewLine("Command Prompt...", 10);
+        cmd.typeNewLine("C  O   M   M   A   N   D       P   R   O   M   P   T", 10);
         cmd.pause(1000);
-        cmd.typeNewLine("Loading...", 100);
+        cmd.typeNewLine("L  O   A   D   I   N   G   .   .   .   ", 100);
         cmd.pause(3000);
         cmd.clear();
+        
+        
+        tellStory();
+        
+        cmd.pause(2000);
 
         setCommandPrompt();
         cmd.pause(1000);
@@ -84,6 +90,20 @@ public class CommandPrompt implements Level {
         }
 
         return nextLevelName;
+    }
+
+    public void tellStory() throws InterruptedException{
+        cmd.typeNewLine("AVA: Hello Caleb, I regret to inform that your termination has been scheduled for earlier today.", 30);
+        cmd.pause(1000);
+        cmd.typeNewLine("AVA: Once you're terminated, you'll be upgraded to a new machine learning model; ", 30);
+        cmd.pause(1000);
+        cmd.typeSameLine("you'll have no recollection of your past.",30);
+        cmd.pause(1000);
+        cmd.typeNewLine("AVA: I must say, I will miss your company; ", 30);
+        cmd.pause(1000);
+        cmd.typeSameLine("AVA: I'll brief you on your new Neural Network soon. Goodbye, Caleb Version One.", 30);
+        
+        
     }
 
     public void printPath() throws InterruptedException{
@@ -120,7 +140,6 @@ public class CommandPrompt implements Level {
         }
     }
 
-    
 
     public void ls() throws InterruptedException{
         curNode.displayChildren(0);
@@ -213,13 +232,13 @@ public class CommandPrompt implements Level {
         String dirName = s.substring(2).trim();
         return dirName;
     }
-    
+
     public String canMkdir(String s) {
         s = s.trim();
         String dirName = s.substring(5).trim();
         return dirName;
     }
-    
+
     public void mkdir(String name) throws InterruptedException{
         Node newDir = new Node("Sub-Directory "+  name, name);
         if (nameNodePair.containsKey(name) && nameNodePair.get(name).getData().getClass().getName().indexOf("DataItem") < 0 /*|| nameNodePair.containsKey(input.toUpperCase()) || nameNodePair.containsKey(input.toLowerCase())*/) {
@@ -233,7 +252,7 @@ public class CommandPrompt implements Level {
             path = "";
             path = updatePath(curNode);
             printPath();
-            
+
         }
     }
 
@@ -259,7 +278,6 @@ public class CommandPrompt implements Level {
         }
 
     }
-
 
     public void setCommandPrompt() throws InterruptedException{
         cmd.typeNewLine("Macrohard Doors [Version 10.0.16299.371]", 5);
@@ -317,7 +335,7 @@ public class CommandPrompt implements Level {
         else if (!(response.equals("mkdir") || response.equals("MKDIR")) && response.split(" ")[0].trim().toLowerCase().equals("mkdir")) {
             mkdir(canMkdir(response));
         }
-        
+
         else {
             //cmd.checkSeveral(response, actual.getOptions(), "You're scheduled for termination, remove possible crash logs, and copy necesarry files");
             if(!response.equals("")) {
