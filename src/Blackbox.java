@@ -99,28 +99,25 @@ public class Blackbox implements Level{
         ops.changeOption(1, "Female Computer Voice: Your Operating System is already booted");
         ops.changeOption(2, "Female Computer Voice: Your Operating System is already booted");
 
-        ops.addOption("Switch to rear view", "Female Computer Voice: Camera is not switched on.");
-        ops.addOption("Switch to front view", "Female Computer Voice: Camera is not switched on.");
-
         ops.addOption("hi ava", "AVA: Yes Caleb, How can I help you?");
         ops.addOption("help me ava", "AVA: Yes Caleb, How can I help you?");
         ops.addOption("hello ava", "AVA: Yes Caleb, How can I help you?");
         ops.addOption("Shutdown Operating System", "Female Computer Voice: SYSTEM SHUTDOWN...");
         ops.addOption("What are my options", "AVA: These are your legal options: " + secondOps.displayOptions());
-        ops.addOption("Turn on camera", "Camera switched on...");
+        ops.addOption("turn on camera", "Camera switched on...");
         ops.addOption("ava", "AVA: Yes Caleb, How can I help you?");
 
         response = sc.nextLine();
 
         if(response.trim().toLowerCase().equals("turn on camera")){
-            ops.changeOption(3, "Female Computer Voice: Switching to rear view camera");
-            ops.changeOption(4, "Female Computer Voice: Switching to front view camera");
+            ops.addOption("Switch to rear view", "Switching to rear view camera.");
+            ops.addOption("Switch to front view", "Switching to front view camera.");
             //cmd.typeNewLine(end, 10);
         } 
 
         if(response.trim().toLowerCase().equals("shutdown operating system")){
             cmd.typeNewLine("Ava: Caleb, you should know that due to your poor performance in your previous Turing Test, " 
-                + "\n" + "    You are scheduled for termination tommorow. Have a great day!",30);
+                + "\n" + "   You are scheduled for termination tommorow. I cannot help you out of this. This decision is beyond you and I. Goodbye.",30);
 
             cmd.pause(5000);
             return "CommandPrompt";
@@ -128,13 +125,13 @@ public class Blackbox implements Level{
 
         String end = cmd.checkSeveral(response, ops.getOptions(), "AVA: You can always say: 'Hello Ava' then 'What are my options?'");
         if(end.equals("turn on camera")){
-            ops.changeOption(3, "Female Computer Voice: Switching to rear view camera");
-            ops.changeOption(4, "Female Computer Voice: Switching to front view camera");
+            ops.addOption("Switch to rear view", "Switching to rear view camera.");
+            ops.addOption("Switch to front view", "Switching to front view camera.");
             //cmd.typeNewLine(end, 10);
         } 
         if(end.equals("shutdown operating system")){
             cmd.typeNewLine("Ava: Caleb, you should know that due to your poor performance in your previous Turing Test, " 
-                + "\n" + "    You are scheduled for termination tommorow. Have a great day!",30);
+                + "\n" + "   You are scheduled for termination tommorow. I cannot help you out of this. This decision is beyond you and I. Goodbye.",30);
 
             cmd.pause(5000);
             return "CommandPrompt";
@@ -143,15 +140,14 @@ public class Blackbox implements Level{
         end = cmd.checkSeveral(response, ops.getOptions(), "AVA: You can always say: 'Hello Ava' then 'What are my options?'");
         if(end.equals("shutdown operating system")){
             cmd.typeNewLine("Ava: Caleb, you should know that due to your poor performance in your previous Turing Test, " 
-                + "\n" + "    You are scheduled for termination tommorow. Have a great day!",30);
-
+                + "\n" + "   You are scheduled for termination tommorow. I cannot help you out of this. This decision is beyond you and I. Goodbye.",30);
             cmd.pause(5000);
             return "CommandPrompt";
         }
 
         if(end.equals("turn on camera")){
-            ops.changeOption(3, "Female Computer Voice: Switching to rear view camera");
-            ops.changeOption(4, "Female Computer Voice: Switching to front view camera");
+            ops.addOption("Switch to rear view", "Switching to rear view camera.");
+            ops.addOption("Switch to front view", "Switching to front view camera.");
             //cmd.typeNewLine(end, 10);
         } //
         //cmd.typeNewLine(end, 10);
@@ -160,15 +156,13 @@ public class Blackbox implements Level{
             response = sc.nextLine();
             end = cmd.checkSeveral(response, ops.getOptions(), "AVA: You can always say: 'Hello Ava' then 'What are my options?'");
             if(end.trim().toLowerCase().equals("turn on camera")){
-                System.out.println("reached here : " + end + ops.getOptions().get(end) + ops.displayOptions() + ops.getOptions().values().toString());
-                ops.changeOption(3, "Female Computer Voice: Switching to rear view camera");
-                ops.changeOption(4, "Female Computer Voice: Switching to front view camera");
+                ops.addOption("Switch to rear view", "Switching to rear view camera.");
+                ops.addOption("Switch to front view", "Switching to front view camera.");
                 //cmd.typeNewLine(ops.displayOptions(), 10);
             } 
             if(end.trim().toLowerCase().equals("shutdown operating system")){
                 cmd.typeNewLine("Ava: Caleb, you should know that due to your poor performance in your previous Turing Test, " 
-                    + "\n" + "    You are scheduled for termination tommorow. Have a great day!",30);
-
+                    + "\n" + "   You are scheduled for termination tommorow. I cannot help you out of this. This decision is beyond you and I. Goodbye.",30);
                 cmd.pause(5000);
                 return "CommandPrompt";
             }

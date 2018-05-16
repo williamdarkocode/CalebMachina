@@ -40,7 +40,7 @@ public class TestGamePlay
         try{
             //wts.testGenPers();
             //c.enter(p);
-            b.enter(p);
+            c.enter(p);
         }
         catch(InterruptedException err){
             System.out.println("oh noooo");

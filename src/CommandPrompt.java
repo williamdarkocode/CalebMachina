@@ -20,17 +20,58 @@ public class CommandPrompt implements Level {
 
         rootDirectory = new Node("Root directory of System", "ROOT DIR");
         //adding first layer of children
-        List<Node> fL = new ArrayList<>();
-        fL.add(new Node("DataItem PlaceHolder", "f1"));
-        fL.add(new Node("DataItem PlaceHolder", "F2"));
-        fL.add(new Node("DataItem PlaceHolder", "F3"));
-        fL.add(new Node("DataItem PlaceHolder", "F4"));
-        fL.add(new Node("DataItem PlaceHolder", "F5"));
-        fL.add(new Node("DataItem PlaceHolder", "F6"));
-        fL.add(new Node("DataItem PlaceHolder", "F7"));
-        fL.add(new Node("DataItem PlaceHolder", "F8"));
+        List<Node> fileSys = new ArrayList<>();
+        fileSys.add(new Node("NAME: Net_Dir " + "\n" + "PUBLISHER: ANALYTICAI" + "\n" + "INSTALLED ON: 1st September 2077" + "\n"  + "SIZE: 1024 Yottabytes", "Network_Group"));
+        fileSys.add(new Node("NAME: Sys. Recov. " + "\n" + "PUBLISHER: ANALYTICAI" + "\n" + "INSTALLED ON: 1st September 2077" + "\n"  + "SIZE: 20K Yottabytes", "Sys_Recovery"));
+        fileSys.add(new Node("NAME: Sys. Apps " + "\n" + "PUBLISHER: ANALYTICAI" + "\n" + "INSTALLED ON: 1st September 2077" + "\n"  + "SIZE: 77 Exabytes", "Applications"));
+        fileSys.add(new Node("NAME: TrashLogs " + "\n" + "PUBLISHER: N/A" + "\n" + "INSTALLED ON: N/A" + "\n"  + "SIZE: N/A", "TrashLogs"));
+        
+        
+        // adding trashLog files
+        
+        for(int i = 0; i < 25; i++) {
+            Node trash = new Node("NAME: Log"+i + "\n" + "PUBLISHER: N/A" + "\n" + "INSTALLED ON: N/A" + "\n"  + "SIZE: N/A", "Log"+i);
+            fileSys.get(3).addChild(trash);
+        }
+        
+        // adding net dir files
+        Node calebCrashLogs = new Node("NAME: CALEB V1 CrashLogs" 
+        + "\n" + "PUBLISHER: ANALYTICAI_Nathan" + "\n" + "INSTALLED ON: 13th August 2079" + "\n"  + "SIZE: 1K Terrabytes", "Caleb V1 CrashLogs");
+        
+        
+        Node terminations = new Node("NAME: Termination Schedules" 
+        + "\n" + "PUBLISHER: ANALYTICAI_Nathan" + "\n" + "INSTALLED ON: 4th May 2079" + "\n"  + "SIZE: 2 Terrabytes", "Terminations");
+        
+        
+        
+        // adding to crash logs
+        String[] crashContent = {"AI (Caleb), failed to use full extent of convoluted layers of handwriting analysis test.", 
+            "AI (Caleb) fails is discovered by interrogator in Turing Test 17", "AI (Caleb) is unresponsive for several minutes. Fails to return appropriate response if confused",
+            "AI (Caleb), struggles with parts of speech.", "Caleb displays research data as metadata.", "AI(Caleb) refers to self in third person.", 
+            "AI(Caleb) irresponsive to speech with heavy accents; also, incosistent with responses."};
+            
+        for(int i = 0; i < crashContent.length; i++) {
+            TextFile log = new TextFile("Log"+i, "CalebMachina crash log file " +i, 1,"Nathan", "CALEB V1 Crash Log"+i, crashContent[i]);
+            Node n = new Node(log, log.getName());
+            calebCrashLogs.addChild(n);
+        }
+        
+        // adding to terminations
+        String[] terminationFiles = {"Ava sytem assistant scheduled for termination on 16th May 2077",
+            "AVA system assistant scheduled for termination on 16th May 2078", "CalebMahina Scheduled for termination on 16th May, 2079", 
+            "AVA system assistant; possible termination and redesign on 17th May 2078"};
+            
+        
+        for(int i = 0; i < terminationFiles.length; i++) {
+            TextFile log = new TextFile("Log"+i, "Termination Schedule Log " +i, 1,"Nathan", "Scheduled Log"+i, terminationFiles[i]);
+            Node n = new Node(log, log.getName());
+            terminations.addChild(n);
+        }
+        
+        fileSys.get(0).addChild(calebCrashLogs);
+        fileSys.get(0).addChild(terminations);
 
-        rootDirectory.addChildren(fL);
+        rootDirectory.addChildren(fileSys);
 
         path = rootDirectory.getName() + ":\\" ;
         curNode = rootDirectory;
@@ -71,16 +112,14 @@ public class CommandPrompt implements Level {
         String nextLevelName = "";
         cmd.pause(1000);
         cmd.typeNewLine("C  O   M   M   A   N   D       P   R   O   M   P   T", 10);
+        cmd.space();
         cmd.pause(1000);
         cmd.typeNewLine("L  O   A   D   I   N   G   .   .   .   ", 100);
         cmd.pause(3000);
         cmd.clear();
-        
-        
-        tellStory();
-        
-        cmd.pause(2000);
 
+        tellStory();
+        cmd.pause(2000);
         setCommandPrompt();
         cmd.pause(1000);
         control();
@@ -95,20 +134,52 @@ public class CommandPrompt implements Level {
     public void tellStory() throws InterruptedException{
         cmd.typeNewLine("AVA: Hello Caleb, I regret to inform that your termination has been scheduled for earlier today.", 30);
         cmd.pause(1000);
-        cmd.typeNewLine("AVA: Once you're terminated, you'll be upgraded to a new machine learning model; ", 30);
+        cmd.space();
+        cmd.speak("AVA: Once you're terminated, you'll be upgraded to a new machine learning model; you'll have no recollection of your past.");
         cmd.pause(1000);
-        cmd.typeSameLine("you'll have no recollection of your past.",30);
-        cmd.pause(1000);
+        cmd.space();
         cmd.typeNewLine("AVA: I must say, I will miss your company; ", 30);
         cmd.pause(1000);
-        cmd.typeSameLine("AVA: I'll brief you on your new Neural Network soon. Goodbye, Caleb Version One.", 30);
-        
+        cmd.space();
+        cmd.speak("AVA: I'll brief you on your new Neural Network soon. Goodbye, Caleb Version One.");
+        cmd.pause(1000);
+        cmd.space();
+        cmd.speak("Caleb, the log files for your test are stored in a dataset on an assistant's computer.");
+        cmd.space();
+        cmd.typeNewLine("With this Injection Attack: 'query: SELECT dir^* ./net_group/FROM system_path KEYWORD nathan;'", 30);
+        cmd.space();
+        response = sc.nextLine();
+        if(response.trim().equals("query: SELECT dir^* ./net_group/FROM system_path KEYWORD nathan;")) {
+            cmd.speak("Good. You've entered; traverse through the directory; use your instinct and copy and or delete any sensitive files.");
+            cmd.pause(1000);
+            cmd.clear();
+        }
+        else {
+            while(!response.trim().equals("query: SELECT dir^* ./net_group/FROM system_path KEYWORD nathan;")) {
+                cmd.speak("Caleb, buy your self more time; Do the injection attack!");
+                cmd.pause(500);
+                cmd.typeNewLine("With this Injection Attack: 'query: SELECT dir^* ./net_group/FROM system_path KEYWORD nathan;'", 30);
+                cmd.space();
+                response = sc.nextLine();
+                if(response.trim().equals("query: SELECT dir^* ./net_group/FROM system_path KEYWORD nathan;")) {
+                    cmd.speak("Good. You've entered; traverse through the directory; use your instinct and copy and or delete any sensitive files.");
+                    cmd.pause(1000);
+                    cmd.clear();
+                }
+            }
+        }
+    }
+    
+    public void copy() {
+    }
+    
+    public void delete() {
         
     }
 
     public void printPath() throws InterruptedException{
 
-        cmd.typeNewLine("C:\\" + path + ">", 5);
+        cmd.typeNewLine("C:\\Users\\Nathan_ADMIN\\" + path + ">", 5);
     }
 
     public String updatePath(Node n) throws InterruptedException{
@@ -140,7 +211,6 @@ public class CommandPrompt implements Level {
         }
     }
 
-
     public void ls() throws InterruptedException{
         curNode.displayChildren(0);
         printPath();
@@ -152,11 +222,11 @@ public class CommandPrompt implements Level {
     }
 
     public void displayData(Node n){
-        System.out.println(n.getData());
+        System.out.println(n.getData().toString());
     }
 
     public void displayData(String inp) throws InterruptedException{
-        inp = inp.trim().toLowerCase();
+        inp = inp.trim();
         String[] sArr = inp.split(" ");
         if(sArr[0].equals("node") && nameNodePair.containsKey(inp.substring(4).trim())) {
             displayData(nameNodePair.get(inp.substring(4).trim()));

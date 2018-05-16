@@ -39,7 +39,9 @@ public class Options{
     
     public void changeOption(int idx, String newVal){
         String key = this.opsMap.keySet().toArray()[idx]+"";
-        this.opsMap.replace(key, newVal);
+        this.opsMap.remove(key);
+        this.opsMap.put(key, newVal);
+        //this.opsMap.replace(key, this.opsMap.get(key),newVal);
     }
     
     

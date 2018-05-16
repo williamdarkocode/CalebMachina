@@ -114,7 +114,7 @@ public class Node<T> {
         System.out.print(indent(num));
         System.out.println("");
         System.out.print(indent(num));
-        if(this.getData().getClass().getName().indexOf("DataItem") >= 0) {
+        if(this.getData().getClass().getName().indexOf("DataItem") >= 0 || this.getData().getClass().getName().indexOf("TextFile") >= 0) {
             System.out.println(extra+" "+this.getName()+".data");
         }
         else {
@@ -158,7 +158,7 @@ public class Node<T> {
             for(Node n: this.getChildren()){
                 System.out.println("");
                 System.out.print(indent(num));
-                if (n.getData().getClass().getName().indexOf("DataItem") >= 0) {
+                if (n.getData().getClass().getName().indexOf("DataItem") >= 0 || this.getData().getClass().getName().indexOf("TextFile") >= 0) {
                     System.out.println(extra+" "+n.getName()+".data");
                 }
                 else {

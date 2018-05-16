@@ -10,6 +10,8 @@ public class CalebTheMachine implements Game {
        levelsInGame.add(new Wake());
        levelsInGame.add(new Blackbox());
        levelsInGame.add(new CommandPrompt());
+       levelsInGame.add(new SecurityBreach());
+       levelsInGame.add(new ChatWithAva());
        return levelsInGame;
     }
 

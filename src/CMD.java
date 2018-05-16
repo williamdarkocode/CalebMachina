@@ -2,15 +2,12 @@ import java.util.*;
 
 public class CMD {
     private List<String> CMDs;
-    public CMD(){
-        CMDs = new ArrayList<>();
-    }
 
-    public void clear(){
+    public static void clear(){
         System.out.print('\u000C');  
     }
 
-    public String indent(int numTimes){
+    public static String indent(int numTimes){
         String s = "";
         for(int i = 0; i < numTimes; i++){
             s+="    ";
@@ -18,49 +15,71 @@ public class CMD {
         return s;
     }
 
-    public String getObjectType(Object obj){
+    public static String getObjectType(Object obj){
         String type = obj.getClass()+"";
         return type.trim().substring(type.indexOf(" ")+1);
     }
 
-    public void print(String str) {
+    public static void print(String str) {
         System.out.println(str);
     }
 
-    public void space() throws InterruptedException{
-        Thread.sleep(50);
-        System.out.println(" ");
+    public static void space() throws InterruptedException{
+        System.out.println("    ");
     }
 
-    public void pause(int duration) throws InterruptedException{
+    public static void pause(int duration) throws InterruptedException{
         Thread.sleep(duration);
     }
 
-    public void typeNewLine(String str, int speed) throws InterruptedException{
-        System.out.println(" ");
+    public static void typeNewLine(String str, int speed) throws InterruptedException{
+        space();
         for(int i = 0; i < str.length(); i++){
             System.out.print(str.substring(i, i+1));
             Thread.sleep(speed);
         }
-        System.out.println(" ");
+        space();
     }
 
-    public void typeSameLine(String str, int speed) throws InterruptedException{
+    public static void typeSameLine(String str, int speed) throws InterruptedException{
         for(int i = 0; i < str.length(); i++){
             System.out.print(str.substring(i, i+1));
             Thread.sleep(speed);
         }
-        System.out.print(" ");
     }
 
-    public void formatPrint(String textToDisplay, int numberOfTimes, int delay) throws InterruptedException{
+    public static void formatPrint(String textToDisplay, int numberOfTimes, int delay) throws InterruptedException{
         for(int i = 0; i < numberOfTimes; i++){
             System.out.println("***  " + textToDisplay + "  ***");
             Thread.sleep(delay);
         }
     }
 
-    public double CPE(String input, String possibleInput){
+    public static void speak(String s) throws InterruptedException {
+        space();
+        int defaultPause = 30;
+        for(int i = 0; i < s.length(); i++) {
+            boolean comma = s.substring(i, i+1).equals(",");
+            boolean fullStop = s.substring(i, i+1).equals(".");
+            boolean semiColon = s.substring(i, i+1).equals(";");
+            System.out.print(s.substring(i,i+1));
+            if(comma) {
+                Thread.sleep(defaultPause+470);
+            }
+            else if(semiColon) {
+                Thread.sleep(defaultPause+770);
+            }
+            else if(fullStop) {
+                Thread.sleep(defaultPause+970);
+            }
+            else {
+                Thread.sleep(defaultPause);
+            }
+        }
+        space();
+    }
+
+    public static double CPE(String input, String possibleInput){
         String[] inputSplit = input.split(" ");
         double count = 0.0;
         int length = inputSplit.length;
@@ -74,7 +93,7 @@ public class CMD {
     }
 
     //check for several inputs here
-    public String checkSeveral(String input, Map<String, String> inputOutputPair, String question) throws InterruptedException{ 
+    public static String checkSeveral(String input, Map<String, String> inputOutputPair, String question) throws InterruptedException{ 
         input = input.trim().toLowerCase();
         //Scanner sc = new Scanner(System.in);
         boolean pass = false;
@@ -111,10 +130,9 @@ public class CMD {
         }
         //return str;
     }
-    
-    
 
-    public String recurBasedOnPercent(String input, Map<String, String> map, String question) throws InterruptedException{
+
+    public static String recurBasedOnPercent(String input, Map<String, String> map, String question) throws InterruptedException{
         Scanner sc = new Scanner(System.in);
         String query = input;
         double percent = 0.0;
@@ -180,7 +198,7 @@ public class CMD {
         }
     }
 
-    public boolean checkPossibleInputs(String input, String desired1, String output1, String desired2, String output2, String question) throws InterruptedException{
+    public static boolean checkPossibleInputs(String input, String desired1, String output1, String desired2, String output2, String question) throws InterruptedException{
         Scanner sc = new Scanner(System.in);
         boolean pass = false;
         input = input.trim().toLowerCase();
@@ -241,7 +259,7 @@ public class CMD {
         }
     }
 
-    public boolean checkAndSpit(String input, String desired, String output) throws InterruptedException{
+    public static boolean checkAndSpit(String input, String desired, String output) throws InterruptedException{
         boolean pass = false;
         if(input.trim().toLowerCase().equals(desired.toLowerCase())){
             pause(1000);
@@ -262,5 +280,9 @@ public class CMD {
     }
 
     public void enterFolder(){
+    }
+
+    public static void main (String[] args) throws InterruptedException{
+        speak("When I was a boy, I always wanted to be a play for chelsea. Chelsea is my favourite football team; therefore, all I did, as you can assume, is play football all day long.");
     }
 }
